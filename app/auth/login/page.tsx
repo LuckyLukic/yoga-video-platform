@@ -22,7 +22,7 @@ export default function LoginPage() {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: `${window.location.origin}/auth/callback?next=/app`,
       },
     });
   }
@@ -55,6 +55,13 @@ export default function LoginPage() {
       <button onClick={signInWithGoogle} className="border px-4 py-2">
         Login con Google
       </button>
+
+      <div className="text-center text-sm text-gray-600">
+        Non hai un account?{" "}
+        <a href="/auth/signup" className="underline">
+          Registrati
+        </a>
+      </div>
     </div>
   );
 }
