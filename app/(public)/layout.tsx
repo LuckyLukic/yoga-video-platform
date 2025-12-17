@@ -1,16 +1,13 @@
-export default function PublicLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+import Link from "next/link";
+
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <header className="p-4 border-b">
+      <header className="p-4 border-b bg-gray-50">
         <nav className="max-w-6xl mx-auto flex gap-4">
-          <a href="/">Home</a>
-          <a href="/videos">Video</a>
-          <a href="/pricing">Pricing</a>
-          <a href="/auth/login">Login</a>
+          <Link href="/app">Dashboard</Link>
+          <Link href="/app/videos">I miei video</Link>
+          <Link href="/auth/logout">Logout</Link>
         </nav>
       </header>
 
