@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <main className="max-w-6xl mx-auto p-6">
@@ -5,9 +7,9 @@ export default function NotFound() {
       <p className="mt-2 text-gray-600">
         La pagina che cerchi non esiste o è stata spostata.
       </p>
-      <a className="mt-6 inline-block underline" href="/">
+      <Link className="mt-6 inline-block underline" href="/">
         Torna alla home
-      </a>
+      </Link>
     </main>
   );
 }
