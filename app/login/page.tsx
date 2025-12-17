@@ -57,8 +57,8 @@ export default function LoginPage() {
       </button>
 
       <div className="text-center text-sm text-gray-600">
-        Non hai un account?{" "}
-        <a href="/auth/signup" className="underline">
+        Non hai un account? +{" "}
+        <a href="/signup" className="underline">
           Registrati
         </a>
       </div>
