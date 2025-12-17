@@ -7,13 +7,12 @@ export default async function AppPage() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (!user) redirect("/login");
 
   return (
     <div>
       <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p>Benvenuto nella tua area personale.</p>
+      <p>Area privata.</p>
     </div>
   );
 }

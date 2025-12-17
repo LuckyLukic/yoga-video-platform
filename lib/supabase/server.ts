@@ -14,11 +14,12 @@ export async function createSupabaseServerClient() {
         },
         setAll(cookiesToSet) {
           try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
+            cookiesToSet.forEach(({ name, value, options }) => {
+              // Next 16: set(name, value, options) è supportato
+              cookieStore.set(name, value, options);
+            });
           } catch {
-            // Se chiamato da Server Component può fallire: ok, verrà gestito altrove.
+            // In Server Components non puoi sempre settare cookie: ok
           }
         },
       },
