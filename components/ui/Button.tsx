@@ -1,23 +1,33 @@
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import clsx from "clsx";
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "secondary";
-};
+type Variant = "primary" | "secondary" | "ghost";
 
-export default function Button({
+export function Button({
+  children,
+  href,
   variant = "primary",
-  className,
-  ...props
-}: ButtonProps) {
-  const base =
-    "inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2";
-
-  const variants = {
-    primary: "bg-primary-600 text-white hover:bg-primary-700",
-    secondary: "border border-gray-300 text-gray-700 hover:bg-gray-50",
-  };
-
-  return (
-    <button className={cn(base, variants[variant], className)} {...props} />
+}: {
+  children: React.ReactNode;
+  href?: string;
+  variant?: Variant;
+}) {
+  const classes = clsx(
+    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition",
+    {
+      "bg-primary text-white hover:opacity-90": variant === "primary",
+      "bg-secondary text-text hover:opacity-90": variant === "secondary",
+      "bg-transparent text-text hover:bg-surface": variant === "ghost",
+    }
   );
+
+  if (href) {
+    return (
+      <Link href={href} className={classes}>
+        {children}
+      </Link>
+    );
+  }
+
+  return <button className={classes}>{children}</button>;
 }

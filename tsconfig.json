@@ -25,7 +25,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "components/ui/Card"
   ],
   "exclude": ["node_modules"]
 }

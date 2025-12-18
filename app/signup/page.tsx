@@ -1,43 +1,54 @@
-"use client";
-
-import { useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
+import Link from "next/link";
+import { signupAction, googleOAuthAction } from "@/app/(auth)/actions";
 
 export default function SignupPage() {
-  const supabase = createSupabaseBrowserClient();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  async function signUp() {
-    await supabase.auth.signUp({
-      email,
-      password,
-    });
-    window.location.href = "/app";
-  }
-
   return (
-    <div className="max-w-md space-y-4">
-      <h1 className="text-2xl font-bold">Signup</h1>
+    <Section className="pt-32">
+      <div className="max-w-md mx-auto">
+        <h1 className="font-serif text-3xl mb-4">Inizia il tuo percorso</h1>
 
-      <input
-        className="border p-2 w-full"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <p className="text-muted mb-8">
+          Crea un account per accedere a tutte le lezioni e praticare con
+          continuità.
+        </p>
 
-      <input
-        className="border p-2 w-full"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        {/* Email signup */}
+        <form action={signupAction} className="space-y-4 mb-6">
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+            className="w-full rounded-full border border-border px-4 py-3"
+          />
 
-      <button onClick={signUp} className="border px-4 py-2">
-        Crea account
-      </button>
-    </div>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            className="w-full rounded-full border border-border px-4 py-3"
+          />
+
+          <Button>Continua</Button>
+        </form>
+
+        {/* Divider */}
+        <div className="text-center text-xs text-muted mb-6">oppure</div>
+
+        {/* Google */}
+        <form action={googleOAuthAction}>
+          <Button variant="secondary">Continua con Google</Button>
+        </form>
+        <p className="text-sm text-muted mt-6">
+          Hai già un account?{" "}
+          <Link href="/login" className="underline">
+            Accedi
+          </Link>
+        </p>
+      </div>
+    </Section>
   );
 }

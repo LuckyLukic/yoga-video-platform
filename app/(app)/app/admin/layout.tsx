@@ -1,5 +1,5 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export default async function AdminLayout({
   children,
@@ -7,16 +7,14 @@ export default async function AdminLayout({
   children: React.ReactNode;
 }) {
   const supabase = await createSupabaseServerClient();
+  const { data } = await supabase.auth.getUser();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
+  if (!data.user) redirect("/login");
 
   const { data: profile } = await supabase
     .from("profiles")
     .select("role")
-    .eq("id", user.id)
+    .eq("id", data.user.id)
     .single();
 
   if (profile?.role !== "admin") redirect("/app");

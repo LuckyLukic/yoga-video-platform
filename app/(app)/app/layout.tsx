@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { AppHeader } from "@/components/AppHeader";
 
 export default async function AppLayout({
   children,
@@ -23,22 +23,10 @@ export default async function AppLayout({
 
   return (
     <>
-      <header className="p-4 border-b bg-gray-50">
-        <nav className="max-w-6xl mx-auto flex gap-4">
-          <Link href="/app">Dashboard</Link>
-          <Link href="/app/videos">I miei video</Link>
-
-          {isAdmin && (
-            <Link href="/app/admin/videos" className="font-semibold">
-              Admin
-            </Link>
-          )}
-
-          <Link href="/auth/logout">Logout</Link>
-        </nav>
-      </header>
-
-      <main className="max-w-6xl mx-auto p-6">{children}</main>
+      <AppHeader isAdmin={isAdmin} />
+      <main className="min-h-screen bg-background">
+        <div className="max-w-7xl mx-auto px-4 py-8">{children}</div>
+      </main>
     </>
   );
 }

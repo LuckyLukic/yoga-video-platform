@@ -1,18 +1,19 @@
-import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
 
-export default async function AppPage() {
-  const supabase = await createSupabaseServerClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) redirect("/login");
-
+export default function AppHomePage() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold">Dashboard</h1>
-      <p>Area privata.</p>
-    </div>
+    <Section className="pt-32">
+      <div className="max-w-2xl">
+        <h1 className="font-serif text-3xl mb-4">Bentornato</h1>
+
+        <p className="text-muted mb-8">
+          Questo è il tuo spazio. Prenditi il tempo che ti serve e scegli la
+          pratica giusta per oggi.
+        </p>
+
+        <Button href="/app/videos">Vai ai video</Button>
+      </div>
+    </Section>
   );
 }

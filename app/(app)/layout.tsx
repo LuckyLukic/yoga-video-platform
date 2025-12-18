@@ -1,4 +1,4 @@
-export default function PrivateGroupLayout({
+export default function AppGroupLayout({
   children,
 }: {
   children: React.ReactNode;

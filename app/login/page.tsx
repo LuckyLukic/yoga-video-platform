@@ -1,67 +1,48 @@
-"use client";
-
-import { useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { Section } from "@/components/ui/Section";
+import { Button } from "@/components/ui/Button";
+import Link from "next/link";
+import { loginAction, googleOAuthAction } from "@/app/(auth)/actions";
 
 export default function LoginPage() {
-  const supabase = createSupabaseBrowserClient();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-
-  async function signInWithEmail() {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    if (error) setError(error.message);
-    else window.location.href = "/app";
-  }
-
-  async function signInWithGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=/app`,
-      },
-    });
-  }
-
   return (
-    <div className="max-w-md space-y-4">
-      <h1 className="text-2xl font-bold">Login</h1>
+    <Section className="pt-32">
+      <div className="max-w-md mx-auto">
+        <h1 className="font-serif text-3xl mb-4">Bentornato</h1>
 
-      <input
-        className="border p-2 w-full"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <p className="text-muted mb-8">Accedi per continuare la tua pratica.</p>
 
-      <input
-        className="border p-2 w-full"
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <form action={loginAction} className="space-y-4 mb-6">
+          <input
+            name="email"
+            type="email"
+            placeholder="Email"
+            required
+            className="w-full rounded-full border border-border px-4 py-3"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            className="w-full rounded-full border border-border px-4 py-3"
+          />
 
-      {error && <p className="text-red-600">{error}</p>}
+          <Button>Accedi</Button>
+        </form>
 
-      <button onClick={signInWithEmail} className="border px-4 py-2">
-        Login
-      </button>
+        <div className="text-center text-xs text-muted mb-6">oppure</div>
 
-      <button onClick={signInWithGoogle} className="border px-4 py-2">
-        Login con Google
-      </button>
+        <form action={googleOAuthAction}>
+          <Button variant="secondary">Accedi con Google</Button>
+        </form>
 
-      <div className="text-center text-sm text-gray-600">
-        Non hai un account? +{" "}
-        <a href="/signup" className="underline">
-          Registrati
-        </a>
+        <p className="text-sm text-muted mt-6">
+          Non hai un account?{" "}
+          <Link href="/signup" className="underline">
+            Registrati
+          </Link>
+        </p>
       </div>
-    </div>
+    </Section>
   );
 }
