@@ -1,12 +1,15 @@
-"use client";
+type Props = {
+  embedUrl: string;
+};
 
-export default function VideoPlayer({ embedUrl }: { embedUrl: string }) {
+export default function VideoPlayer({ embedUrl }: Props) {
   return (
-    <div className="aspect-video">
+    <div className="aspect-video w-full overflow-hidden rounded">
       <iframe
         src={embedUrl}
-        className="w-full h-full rounded-lg"
-        allow="autoplay; fullscreen; picture-in-picture"
+        className="w-full h-full"
+        loading="lazy"
+        allow="fullscreen; picture-in-picture"
         allowFullScreen
       />
     </div>

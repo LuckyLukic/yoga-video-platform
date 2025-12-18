@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Header from "@/components/Header";
 
 export default function PublicLayout({
   children,
@@ -7,15 +7,8 @@ export default function PublicLayout({
 }) {
   return (
     <>
-      <header className="p-4 border-b bg-gray-50">
-        <nav className="max-w-6xl mx-auto flex gap-4">
-          <Link href="/">Home</Link>
-          <Link href="/videos">Video</Link>
-          <Link href="/login">Login</Link>
-        </nav>
-      </header>
-
-      <main className="max-w-6xl mx-auto p-6">{children}</main>
+      <Header />
+      {children}
     </>
   );
 }
