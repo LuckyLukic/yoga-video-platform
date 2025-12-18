@@ -89,6 +89,22 @@ export async function updateVideoAction(id: string, formData: FormData) {
 export async function togglePublishAction(id: string, nextValue: boolean) {
   const supabase = await createSupabaseServerClient();
 
+  if (nextValue) {
+    const { data: video, error } = await supabase
+      .from("videos")
+      .select("title, slug, vimeo_video_id")
+      .eq("id", id)
+      .single();
+
+    if (error) throw error;
+
+    if (!video.title || !video.slug || !video.vimeo_video_id) {
+      throw new Error(
+        "Video incompleto: titolo, slug e Vimeo ID sono obbligatori per la pubblicazione"
+      );
+    }
+  }
+
   const { error } = await supabase
     .from("videos")
     .update({
